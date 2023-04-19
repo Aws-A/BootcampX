@@ -7,6 +7,10 @@ const pool = new Pool({
   database: 'bootcampx'
 });
 
+const cohortName = process.argv[2];
+
+const values = [`%${cohortName}%`];
+
 
 pool.query(`
 SELECT DISTINCT teachers.name as teacher, cohorts.name as cohort
@@ -22,3 +26,5 @@ ORDER BY teacher;
     console.log(`${row.cohort}: ${row.teacher}`);
   })
 });
+
+pool.query(queryString, values);
